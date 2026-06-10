@@ -1,0 +1,90 @@
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+  /* Fonts */
+  --font-body: "DM Sans", sans-serif;
+  --font-heading: "Manrope", sans-serif;
+
+  /* NOWRIDE Brand Colors */
+  --primary: #253421; /* deep trust green */
+  --secondary: #4c6b44; /* support green */
+  --accent: #df7d64; /* CTA / highlights */
+
+  --dark: #253421;
+  --text: #4b5a4f;
+
+  --white: #ffffff;
+  --background: #f7f5ee; /* soft medical background */
+  --light: #f7f5ee;
+
+  --border: #e7e3d8;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(37, 52, 33, 0.06);
+  --shadow-md: 0 10px 30px rgba(37, 52, 33, 0.1);
+  --shadow-lg: 0 15px 40px rgba(223, 125, 100, 0.25);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* Container */
+  --container-width: 1300px;
+
+  /* Transition */
+  --transition: all 0.3s ease;
+
+  /* Gradient (NOWRIDE updated) */
+  --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+/* RESET */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--background);
+  color: var(--dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--dark);
+}
+
+/* Paragraphs */
+p {
+  font-family: var(--font-body);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
