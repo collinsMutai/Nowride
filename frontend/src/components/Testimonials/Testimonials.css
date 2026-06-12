@@ -1,0 +1,159 @@
+/* =========================
+   SECTION
+========================= */
+
+.testimonials {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+.testimonials-container {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.testimonials-header h2 {
+  font-size: 2.6rem;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.testimonials-header p {
+  color: var(--text);
+  margin-bottom: 50px;
+}
+
+/* =========================
+   SLIDER CARD
+========================= */
+
+.testimonial-slider {
+  position: relative;
+  min-height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.testimonial-card {
+  width: 100%;
+  max-width: 650px;
+
+  background: #fff;
+  border: 1px solid rgba(225, 29, 72, 0.1);
+
+  border-radius: 24px;
+  padding: 40px 30px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================
+   STARS
+========================= */
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.stars svg {
+  color: #fbbf24;
+  font-size: 18px;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.testimonial-text {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: var(--dark);
+  margin-bottom: 18px;
+}
+
+.testimonial-author {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* =========================
+   DOTS
+========================= */
+
+.dots {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  border: none;
+  background: #cbd5e1;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.dot.active {
+  background: var(--primary);
+  transform: scale(1.2);
+}
+
+/* =========================
+   AVATAR
+========================= */
+
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 3px solid rgba(225, 29, 72, 0.2);
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .testimonials-header h2 {
+    font-size: 2rem;
+  }
+
+  .testimonial-card {
+    padding: 28px 20px;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+  }
+}

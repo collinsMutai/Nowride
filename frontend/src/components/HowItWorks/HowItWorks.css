@@ -1,0 +1,235 @@
+/* =========================
+   SECTION
+========================= */
+
+.how {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+}
+
+.how-container {
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.how-header h2 {
+  font-size: 2.6rem;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.how-header h2 svg {
+  color: var(--primary);
+}
+
+.how-header p {
+  color: var(--text);
+  margin-bottom: 60px;
+}
+
+/* =========================
+   STEPPER WRAPPER
+========================= */
+
+.stepper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* LINE CONNECTING ICONS */
+.stepper-line {
+  position: absolute;
+  top: 35px;
+  left: calc(16.6% + 35px);
+  right: calc(16.6% + 35px);
+
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(225, 29, 72, 0.5),
+    rgba(225, 29, 72, 0.1)
+  );
+
+  z-index: 0;
+}
+
+/* =========================
+   STEP ITEM
+========================= */
+
+.step-item {
+  flex: 1;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  z-index: 1;
+}
+
+/* ICON */
+.step-icon {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff;
+  border: 2px solid rgba(225, 29, 72, 0.2);
+
+  font-size: 26px;
+
+  box-shadow: 0 10px 30px rgba(225, 29, 72, 0.12);
+
+  transition: 0.3s ease;
+}
+
+/* ICON COLOR */
+.step-icon svg {
+  color: var(--primary);
+  transition: 0.3s ease;
+}
+
+/* hover */
+.step-item:hover .step-icon {
+  transform: translateY(-4px) scale(1.05);
+  border-color: rgba(225, 29, 72, 0.4);
+  box-shadow: 0 15px 35px rgba(225, 29, 72, 0.18);
+}
+
+.step-item:hover .step-icon svg {
+  color: #be123c;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.step-text {
+  margin-top: 18px;
+}
+
+.step-text h3 {
+  font-size: 1.2rem;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.step-text p {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* =========================
+   TABLET FIX
+========================= */
+
+@media (max-width: 1024px) {
+  .stepper-line {
+    left: 18%;
+    right: 18%;
+  }
+
+  .step-icon {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* =========================
+   MOBILE (MAIN FIX)
+========================= */
+
+@media (max-width: 900px) {
+  .how {
+    padding: 70px 16px;
+  }
+
+  .stepper {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .stepper-line {
+    display: none;
+  }
+
+  .step-item {
+    margin-bottom: 34px;
+  }
+
+  .step-icon {
+    width: 62px;
+    height: 62px;
+    font-size: 22px;
+  }
+
+  .step-text h3 {
+    font-size: 1.1rem;
+  }
+
+  .step-text p {
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 420px) {
+  .how {
+    padding: 60px 14px;
+  }
+
+  .how-header h2 {
+    font-size: 1.9rem;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .how-header p {
+    margin-bottom: 40px;
+  }
+
+  .step-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .step-text p {
+    font-size: 0.88rem;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .step-icon,
+  .step-item:hover .step-icon {
+    transition: none;
+    transform: none;
+  }
+}

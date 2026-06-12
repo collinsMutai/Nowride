@@ -31,29 +31,21 @@ const serviceRanges = [
     prefix: "802",
     city: "Denver",
     county: "Denver County",
-    services: [
-      "Medical Transportation",
-      "Wheelchair Transport",
-      "Hospital Discharge",
-    ],
   },
   {
     prefix: "800",
     city: "Aurora",
     county: "Arapahoe County",
-    services: ["Medical Transportation", "Senior Transportation"],
   },
   {
     prefix: "803",
     city: "Boulder",
     county: "Boulder County",
-    services: ["Medical Transportation", "Companion Rides"],
   },
   {
     prefix: "809",
     city: "Colorado Springs",
     county: "El Paso County",
-    services: ["Medical Transportation", "Wheelchair Transport"],
   },
 ];
 
