@@ -98,7 +98,7 @@ const ServiceArea = () => {
   };
 
   return (
-    <section className="service-area">
+    <section className="service-area" id="coverage">
       <div className="service-area-container">
 
         {/* LEFT */}

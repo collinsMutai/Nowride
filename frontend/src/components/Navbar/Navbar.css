@@ -121,6 +121,40 @@
   color: var(--dark);
 }
 
+.active-link {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.active-link::after {
+  width: 100% !important;
+}
+.nav-link-btn {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+
+  color: var(--text);
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: 0.3s;
+}
+
+.nav-link-btn:hover::after {
+  width: 100%;
+}
+
 /* =========================
    MOBILE
 ========================= */

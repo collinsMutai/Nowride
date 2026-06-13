@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaClock,
   FaPhoneAlt,
@@ -15,10 +16,27 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const closeMenu = () => setOpen(false);
+
+  // smooth scroll helper
+  const scrollToSection = (id) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+    closeMenu();
+  };
 
   return (
     <>
-      {/* TOP NAV (always visible) */}
+      {/* TOP NAV */}
       <div className="top-nav">
         <div className="top-nav-left">
           <span><FaClock className="icon" /> Mon - Fri: 8:00 AM - 6:00 PM</span>
@@ -33,26 +51,46 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* MAIN NAV */}
+      {/* NAVBAR */}
       <nav className="navbar">
         <div className="navbar-logo">
           <FaAmbulance className="logo-icon" />
           <span>NOWRIDE</span>
         </div>
 
-        {/* HAMBURGER */}
         <div className="menu-icon" onClick={() => setOpen(!open)}>
           {open ? <FaTimes /> : <FaBars />}
         </div>
 
-        {/* LINKS */}
         <ul className={`navbar-links ${open ? "active" : ""}`}>
-          <li><a href="#home" onClick={() => setOpen(false)}>Home</a></li>
-          <li><a href="#services" onClick={() => setOpen(false)}>Services</a></li>
-          <li><a href="#coverage" onClick={() => setOpen(false)}>Service Areas</a></li>
-          <li><a href="#insurance" onClick={() => setOpen(false)}>Insurance & Medicaid</a></li>
-          <li><a href="#about" onClick={() => setOpen(false)}>About Us</a></li>
-          <li><a href="#contact" onClick={() => setOpen(false)}>Contact</a></li>
+
+          <li>
+            <Link to="/" onClick={closeMenu}>Home</Link>
+          </li>
+          
+          <li>
+            <Link to="/about" onClick={closeMenu}>About Us</Link>
+          </li>
+
+          <li>
+            <Link to="/services" onClick={closeMenu}>Services</Link>
+          </li>
+
+          
+          <li>
+            <button
+              onClick={() => scrollToSection("coverage")}
+              className="nav-link-btn"
+            >
+              Service Areas
+            </button>
+          </li>
+
+
+          <li>
+            <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          </li>
+
         </ul>
 
         <button className="navbar-btn">Schedule a Ride</button>
