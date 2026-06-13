@@ -1,0 +1,54 @@
+.hero-banner {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.hero-banner__overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+}
+
+.hero-banner__overlay h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 18px;
+  max-width: 900px;
+}
+
+.hero-banner__overlay p {
+  max-width: 750px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+  .hero-banner__overlay h1 {
+    font-size: 2rem;
+  }
+
+  .hero-banner__overlay p {
+    font-size: 1rem;
+  }
+}

@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 
 import "./About.css";
+import HeroBanner from "../components/HeroBanner/HeroBanner";
 import aboutHeroImg from "../assets/img6.jpg";
 
 const values = [
@@ -25,7 +26,7 @@ const safetyItems = [
 ];
 
 /* =========================
-   ANIMATION VARIANTS
+ANIMATION VARIANTS
 ========================= */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -57,40 +58,12 @@ const item = {
 const About = () => {
   return (
     <section className="about-page">
-
-      {/* HERO */}
-      <div
-        className="about-hero"
-        style={{ backgroundImage: `url(${aboutHeroImg})` }}
-      >
-        <motion.div
-          className="hero-overlay"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: false, amount: 0.3 }}
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: false }}
-          >
-            Care-Focused Transportation You Can Depend On
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9 }}
-            viewport={{ once: false }}
-          >
-            NowRide Care provides non-emergency medical transportation across
-            Colorado with a focus on dignity, safety, and reliability.
-          </motion.p>
-        </motion.div>
-      </div>
-
+      {" "}
+      <HeroBanner
+        backgroundImage={aboutHeroImg}
+        title="Care-Focused Transportation You Can Depend On"
+        subtitle="NowRide Care provides non-emergency medical transportation across Colorado with a focus on dignity, safety, and reliability."
+      />
       {/* MISSION */}
       <motion.div
         className="mission-card"
@@ -105,7 +78,6 @@ const About = () => {
           consistent, and compassionate mobility solutions.
         </p>
       </motion.div>
-
       {/* VALUES */}
       <div className="values-section">
         <motion.h2
@@ -138,7 +110,6 @@ const About = () => {
           ))}
         </motion.div>
       </div>
-
       {/* SAFETY */}
       <motion.div
         className="safety-section"
@@ -156,18 +127,13 @@ const About = () => {
           whileInView="visible"
         >
           {safetyItems.map((itemText, index) => (
-            <motion.div
-              key={index}
-              className="safety-item"
-              variants={item}
-            >
+            <motion.div key={index} className="safety-item" variants={item}>
               <FaCheckCircle className="check-icon" />
               <span>{itemText}</span>
             </motion.div>
           ))}
         </motion.div>
       </motion.div>
-
     </section>
   );
 };
