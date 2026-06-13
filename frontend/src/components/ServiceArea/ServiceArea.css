@@ -380,37 +380,82 @@
 
 .cta-btn {
   margin-top: 16px;
+
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 
-  padding: 12px 18px;
-  border-radius: 12px;
+  padding: 14px 20px;
 
-  font-weight: 700;
+  border-radius: 14px;
+  border: none;
+  outline: none;
+
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+
   text-decoration: none;
+  cursor: pointer;
 
-  transition: 0.25s ease;
+  transition: all 0.3s ease;
+
+  position: relative;
+  overflow: hidden;
 }
 
+/* subtle shine effect */
+.cta-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+
+.cta-btn:hover::after {
+  animation: shine 0.8s ease;
+}
+
+@keyframes shine {
+  100% {
+    left: 125%;
+  }
+}
+
+/* SUCCESS BUTTON (Book / Request Ride) */
 .success-cta {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), #ff2d55);
   color: #fff;
+
+  box-shadow: 0 10px 25px rgba(225, 29, 72, 0.25);
 }
 
 .success-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(225, 29, 72, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 35px rgba(225, 29, 72, 0.35);
 }
 
+/* ERROR BUTTON */
 .error-cta {
-  background: #111827;
+  background: linear-gradient(135deg, #111827, #1f2937);
   color: #fff;
+
+  box-shadow: 0 10px 25px rgba(17, 24, 39, 0.25);
 }
 
 .error-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(17, 24, 39, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 35px rgba(17, 24, 39, 0.35);
 }
 
 /* =========================

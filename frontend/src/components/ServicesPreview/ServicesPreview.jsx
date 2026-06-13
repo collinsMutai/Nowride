@@ -88,9 +88,9 @@ const ServicesPreview = () => {
               <h3>{service.title}</h3>
               <p>{service.description}</p>
 
-              <button className="service-link">
+              {/* <button className="service-link">
                 Learn More →
-              </button>
+              </button> */}
             </motion.article>
           ))}
         </motion.div>

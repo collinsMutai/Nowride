@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FaMapMarkerAlt,
-  FaArrowRight,
-  FaTimes,
-  FaPhone,
-} from "react-icons/fa";
+import { FaMapMarkerAlt, FaArrowRight, FaTimes, FaPhone } from "react-icons/fa";
 
 import "./ServiceArea.css";
+import BookingModal from "../BookingModal/BookingModal";
 
 const locations = [
   "Boulder",
@@ -72,6 +68,8 @@ const ServiceArea = () => {
   const [zipCode, setZipCode] = useState("");
   const [coverageInfo, setCoverageInfo] = useState(null);
   const [result, setResult] = useState(null);
+  const [openBookingModal, setOpenBookingModal] = useState(false);
+  const [zipError, setZipError] = useState("");
 
   const openModal = () => {
     setShowChecker(true);
@@ -82,25 +80,44 @@ const ServiceArea = () => {
 
   const closeModal = () => setShowChecker(false);
 
-  const checkCoverage = (e) => {
-    e.preventDefault();
+ const checkCoverage = (e) => {
+  e.preventDefault();
 
-    const zip = zipCode.trim();
-    const area = findCoverage(zip);
+  const zip = zipCode.trim();
 
-    if (area) {
-      setCoverageInfo(area);
-      setResult(true);
-    } else {
-      setCoverageInfo(null);
-      setResult(false);
-    }
-  };
+  // reset UI state
+  setZipError("");
+  setResult(null);
+  setCoverageInfo(null);
+
+  // ❌ empty validation (STOP submission flow)
+  if (!zip) {
+    setZipError("Please enter a ZIP code.");
+    return;
+  }
+
+  // ❌ format validation
+  const isValidZip = /^[0-9]{3,10}$/.test(zip);
+
+  if (!isValidZip) {
+    setZipError("Please enter a valid ZIP code.");
+    return;
+  }
+
+  const area = findCoverage(zip);
+
+  if (area) {
+    setCoverageInfo(area);
+    setResult(true);
+  } else {
+    setResult(false);
+    setCoverageInfo(null);
+  }
+};
 
   return (
     <section className="service-area" id="coverage">
       <div className="service-area-container">
-
         {/* LEFT */}
         <motion.div
           className="service-content"
@@ -114,8 +131,8 @@ const ServiceArea = () => {
           <h2>We Serve Across Colorado</h2>
 
           <p>
-            Reliable transportation services connecting patients,
-            families, and healthcare providers across Colorado.
+            Reliable transportation services connecting patients, families, and
+            healthcare providers across Colorado.
           </p>
 
           <div className="service-cities">
@@ -217,10 +234,7 @@ const ServiceArea = () => {
       {/* MODAL */}
       {showChecker && (
         <div className="coverage-overlay" onClick={closeModal}>
-          <div
-            className="coverage-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="coverage-modal" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={closeModal}>
               <FaTimes />
             </button>
@@ -235,7 +249,11 @@ const ServiceArea = () => {
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
               />
-
+{zipError && (
+  <p style={{ color: "#b91c1c", marginTop: "8px", fontSize: "13px" }}>
+    {zipError}
+  </p>
+)}
               <button className="check-btn" type="submit">
                 Check Coverage
               </button>
@@ -245,9 +263,15 @@ const ServiceArea = () => {
               <div className="coverage-success">
                 <h4>✅ We serve this area</h4>
 
-                <p><strong>ZIP:</strong> {coverageInfo.zip}</p>
-                <p><strong>City:</strong> {coverageInfo.city}</p>
-                <p><strong>County:</strong> {coverageInfo.county}</p>
+                <p>
+                  <strong>ZIP:</strong> {coverageInfo.zip}
+                </p>
+                <p>
+                  <strong>City:</strong> {coverageInfo.city}
+                </p>
+                <p>
+                  <strong>County:</strong> {coverageInfo.county}
+                </p>
 
                 <div className="services-list">
                   {coverageInfo.services.map((service) => (
@@ -255,9 +279,15 @@ const ServiceArea = () => {
                   ))}
                 </div>
 
-                <a href="/book" className="cta-btn success-cta">
+                <button
+                  className="cta-btn success-cta"
+                  onClick={() => {
+                    closeModal(); // closes coverage modal
+                    setOpenBookingModal(true);
+                  }}
+                >
                   Book / Request Ride <FaArrowRight />
-                </a>
+                </button>
               </div>
             )}
 
@@ -266,8 +296,8 @@ const ServiceArea = () => {
                 <h4>❌ Not in service area</h4>
 
                 <p>
-                  We may not currently serve this ZIP code.
-                  Please contact dispatch for assistance.
+                  We may not currently serve this ZIP code. Please contact
+                  dispatch for assistance.
                 </p>
 
                 <a href="tel:+1234567890" className="cta-btn error-cta">
@@ -278,6 +308,10 @@ const ServiceArea = () => {
           </div>
         </div>
       )}
+      <BookingModal
+        isOpen={openBookingModal}
+        onClose={() => setOpenBookingModal(false)}
+      />
     </section>
   );
 };
