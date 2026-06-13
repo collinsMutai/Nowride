@@ -13,8 +13,12 @@ import {
 } from "react-icons/fa";
 
 import "./Navbar.css";
+import BookingModal from "..//BookingModal/BookingModal";
+
 
 const Navbar = () => {
+    const [openModal, setOpenModal] = useState(false);
+
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -93,7 +97,11 @@ const Navbar = () => {
 
         </ul>
 
-        <button className="navbar-btn">Schedule a Ride</button>
+        <button className="navbar-btn" onClick={() => setOpenModal(true)}>Schedule a Ride</button>
+         <BookingModal
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+      />
       </nav>
     </>
   );
