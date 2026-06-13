@@ -10,12 +10,13 @@ import {
 import "./ServiceArea.css";
 
 const locations = [
+  "Boulder",
   "Denver",
   "Aurora",
   "Colorado Springs",
-  "Boulder",
   "Surrounding Communities",
 ];
+
 const services = [
   "Medical Transportation",
   "Wheelchair Transport",
@@ -23,6 +24,7 @@ const services = [
   "Senior Transportation",
   "Companion Rides",
 ];
+
 /* =========================
    ZIP RANGE DATABASE
 ========================= */
@@ -61,7 +63,7 @@ const findCoverage = (zip) => {
     zip,
     city: match.city,
     county: match.county,
-    services: services,
+    services,
   };
 };
 
@@ -69,7 +71,7 @@ const ServiceArea = () => {
   const [showChecker, setShowChecker] = useState(false);
   const [zipCode, setZipCode] = useState("");
   const [coverageInfo, setCoverageInfo] = useState(null);
-  const [result, setResult] = useState(null); // true / false / null
+  const [result, setResult] = useState(null);
 
   const openModal = () => {
     setShowChecker(true);
@@ -105,6 +107,7 @@ const ServiceArea = () => {
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <span className="service-tag">Service Area</span>
 
@@ -116,11 +119,21 @@ const ServiceArea = () => {
           </p>
 
           <div className="service-cities">
-            {locations.map((city) => (
-              <div key={city} className="city-pill">
+            {locations.map((city, index) => (
+              <motion.div
+                key={city}
+                className="city-pill"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                }}
+                viewport={{ once: false }}
+              >
                 <FaMapMarkerAlt />
                 <span>{city}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -135,14 +148,58 @@ const ServiceArea = () => {
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <div className="map-bg">
             <div className="map-grid"></div>
 
-            <div className="map-pin denver"><span></span><p>Denver</p></div>
-            <div className="map-pin aurora"><span></span><p>Aurora</p></div>
-            <div className="map-pin springs"><span></span><p>Colorado Springs</p></div>
-            <div className="map-pin boulder"><span></span><p>Boulder</p></div>
+            {/* BouldER (START) */}
+            <motion.div
+              className="map-pin boulder"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              viewport={{ once: false }}
+            >
+              <span></span>
+              <p>Boulder</p>
+            </motion.div>
+
+            {/* Denver */}
+            <motion.div
+              className="map-pin denver"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              viewport={{ once: false }}
+            >
+              <span></span>
+              <p>Denver</p>
+            </motion.div>
+
+            {/* Aurora */}
+            <motion.div
+              className="map-pin aurora"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+              viewport={{ once: false }}
+            >
+              <span></span>
+              <p>Aurora</p>
+            </motion.div>
+
+            {/* Colorado Springs (END) */}
+            <motion.div
+              className="map-pin springs"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.8 }}
+              viewport={{ once: false }}
+            >
+              <span></span>
+              <p>Colorado Springs</p>
+            </motion.div>
 
             <svg className="map-route" viewBox="0 0 500 350">
               <path
@@ -160,8 +217,10 @@ const ServiceArea = () => {
       {/* MODAL */}
       {showChecker && (
         <div className="coverage-overlay" onClick={closeModal}>
-          <div className="coverage-modal" onClick={(e) => e.stopPropagation()}>
-
+          <div
+            className="coverage-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button className="close-modal" onClick={closeModal}>
               <FaTimes />
             </button>
@@ -176,12 +235,12 @@ const ServiceArea = () => {
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
               />
+
               <button className="check-btn" type="submit">
                 Check Coverage
               </button>
             </form>
 
-            {/* ✅ SUCCESS */}
             {result === true && coverageInfo && (
               <div className="coverage-success">
                 <h4>✅ We serve this area</h4>
@@ -191,34 +250,31 @@ const ServiceArea = () => {
                 <p><strong>County:</strong> {coverageInfo.county}</p>
 
                 <div className="services-list">
-                  {coverageInfo.services.map((s) => (
-                    <span key={s}>{s}</span>
+                  {coverageInfo.services.map((service) => (
+                    <span key={service}>{service}</span>
                   ))}
                 </div>
 
-                {/* CTA: BOOK */}
                 <a href="/book" className="cta-btn success-cta">
                   Book / Request Ride <FaArrowRight />
                 </a>
               </div>
             )}
 
-            {/* ❌ FAILURE */}
             {result === false && (
               <div className="coverage-error">
                 <h4>❌ Not in service area</h4>
+
                 <p>
                   We may not currently serve this ZIP code.
                   Please contact dispatch for assistance.
                 </p>
 
-                {/* CTA: CALL DISPATCH */}
                 <a href="tel:+1234567890" className="cta-btn error-cta">
                   Call Dispatch <FaPhone />
                 </a>
               </div>
             )}
-
           </div>
         </div>
       )}

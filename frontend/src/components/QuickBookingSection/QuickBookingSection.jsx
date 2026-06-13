@@ -22,6 +22,7 @@ const trustItems = [
 const QuickBookingSection = () => {
   return (
     <section className="trust-booking-section">
+
       {/* TRUST TICKER */}
       <div className="trust-ticker">
         <motion.div
@@ -45,12 +46,20 @@ const QuickBookingSection = () => {
       {/* BOOKING CARD */}
       <motion.div
         className="booking-card"
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.25 }}
       >
-        <div className="booking-header">
+
+        {/* HEADER */}
+        <motion.div
+          className="booking-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
           <div className="booking-icon">
             <FaAmbulance />
           </div>
@@ -62,20 +71,27 @@ const QuickBookingSection = () => {
 
           {/* RIGHT ACTIONS */}
           <div className="booking-actions">
-            {/* LIVE STATUS */}
             <a href="tel:+17193067313" className="booking-pill">
               <span className="dot" />
               <span className="text">Live Dispatch</span>
             </a>
 
-            {/* CALL NOW */}
             <a href="tel:+17193067313" className="call-now-btn">
               Call Now
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        <QuickBookingForm />
+        {/* FORM */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.25 }}
+        >
+          <QuickBookingForm />
+        </motion.div>
+
       </motion.div>
     </section>
   );

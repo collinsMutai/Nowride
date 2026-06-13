@@ -35,50 +35,48 @@ const Hero = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, []);
+
+  const current = slides[activeSlide];
 
   return (
     <section className="hero">
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`hero-slide ${
-            activeSlide === index ? "active" : ""
-          }`}
-          style={{
-            backgroundImage: `url(${slide.image})`,
-          }}
-        >
-          <div className="hero-overlay">
-            <div className="hero-content">
-              <span className="hero-badge">
-                Trusted Medical Transportation
-              </span>
 
-              <h1>{slide.title}</h1>
+      {/* ACTIVE SLIDE ONLY (FIXES BLANK ISSUE) */}
+      <div
+        className="hero-slide active"
+        style={{ backgroundImage: `url(${current.image})` }}
+      >
+        <div className="hero-overlay">
+          <div className="hero-content">
 
-              <p>{slide.text}</p>
+            <span className="hero-badge">
+              Trusted Medical Transportation
+            </span>
 
-              <button className="hero-btn">
-                {slide.button}
-              </button>
-            </div>
+            <h1>{current.title}</h1>
+
+            <p>{current.text}</p>
+
+            <button className="hero-btn">
+              {current.button}
+            </button>
+
           </div>
         </div>
-      ))}
+      </div>
 
+      {/* DOTS */}
       <div className="hero-dots">
         {slides.map((_, index) => (
           <button
             key={index}
-            className={`hero-dot ${
-              activeSlide === index ? "active"
-                : ""
-            }`}
+            className={`hero-dot ${activeSlide === index ? "active" : ""}`}
             onClick={() => setActiveSlide(index)}
           />
         ))}
       </div>
+
     </section>
   );
 };

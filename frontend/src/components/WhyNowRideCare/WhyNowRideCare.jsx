@@ -18,17 +18,39 @@ const features = [
   { icon: <FaCheckCircle />, text: "Compassion-first service model" },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
 const WhyNowRideCare = () => {
   return (
     <section className="why-care">
       <div className="why-care-container">
+
         {/* LEFT IMAGE */}
         <motion.div
           className="why-illustration"
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <div className="image-wrapper">
             <img
@@ -49,7 +71,7 @@ const WhyNowRideCare = () => {
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <span className="section-tag">Why Choose Us</span>
 
@@ -60,14 +82,26 @@ const WhyNowRideCare = () => {
             standards to ensure every ride is safe, comfortable, and dependable.
           </p>
 
-          <div className="why-list">
+          {/* FEATURES */}
+          <motion.div
+            className="why-list"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
             {features.map((feature, index) => (
-              <div key={index} className="why-item">
+              <motion.div
+                key={index}
+                className="why-item"
+                variants={itemVariants}
+              >
                 {feature.icon}
                 <span>{feature.text}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
+
         </motion.div>
       </div>
     </section>

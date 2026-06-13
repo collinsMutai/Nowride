@@ -27,6 +27,27 @@ const steps = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.18,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -42,26 +63,35 @@ const HowItWorks = () => {
     <section className="how">
       <div className="how-container">
 
-        <div className="how-header">
+        {/* HEADER */}
+        <motion.div
+          className="how-header"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
           <h2>
             <FaBolt /> How It Works
           </h2>
           <p>Simple 3-step medical transportation process</p>
-        </div>
+        </motion.div>
 
         {/* STEPPER */}
-        <div className="stepper">
-
+        <motion.div
+          className="stepper"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
           <div className="stepper-line" />
 
           {steps.map((step, index) => (
             <motion.div
               key={step.title}
               className="step-item"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15 }}
-              viewport={{ once: true }}
+              variants={itemVariants}
             >
 
               {/* ICON */}
@@ -70,15 +100,15 @@ const HowItWorks = () => {
                 animate={
                   activeStep === index
                     ? {
-                        scale: 1.25,
-                        boxShadow: "0 0 25px rgba(225,29,72,0.45)",
+                        scale: 1.3,
+                        boxShadow: "0 0 25px rgba(225,29,72,0.5)",
                       }
                     : {
                         scale: 1,
                         boxShadow: "0 10px 30px rgba(225,29,72,0.12)",
                       }
                 }
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               >
                 {step.icon}
               </motion.div>
@@ -92,7 +122,8 @@ const HowItWorks = () => {
             </motion.div>
           ))}
 
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );
