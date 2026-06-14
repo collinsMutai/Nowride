@@ -14,12 +14,16 @@ import {
   FaArrowRight,
   FaArrowLeft,
   FaAmbulance,
+  FaEnvelope,
 } from "react-icons/fa";
+
+import { toast } from "react-toastify";
 
 const BookingModal = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
+  const initialForm = {
     pickup: "",
     dropoff: "",
     date: "",
@@ -27,39 +31,106 @@ const BookingModal = ({ isOpen, onClose }) => {
     patientType: "ambulatory",
     name: "",
     phone: "",
-  });
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    email: "",
   };
 
-  const nextStep = () => setStep((s) => Math.min(s + 1, 3));
-  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
+  const [form, setForm] = useState(initialForm);
+
+  const handleChange = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const nextStep = () => {
+    if (
+      step === 1 &&
+      (!form.pickup || !form.dropoff || !form.date || !form.time)
+    ) {
+      toast.warning("Please complete all trip details.");
+      return;
+    }
+
+    if (step === 2 && !form.patientType) {
+      toast.warning("Please select patient type.");
+      return;
+    }
+
+    setStep((s) => Math.min(s + 1, 3));
+  };
+
+  const prevStep = () => {
+    setStep((s) => Math.max(s - 1, 1));
+  };
 
   const closeModal = () => {
     setStep(1);
+    setForm(initialForm);
     onClose();
   };
 
-  const handleSubmit = () => {
-    console.log("Booking Submitted:", form);
-    alert("🚐 Booking Confirmed!");
-    closeModal();
+  const handleSubmit = async () => {
+    if (!form.name || !form.phone || !form.email) {
+      toast.warning("Please complete your contact information.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/book-ride`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Booking failed");
+      }
+
+      toast.success(
+        data.message ||
+          "Booking received! Our dispatch team will contact you shortly."
+      );
+
+      setTimeout(() => {
+        closeModal();
+      }, 1200);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || "Failed to submit booking.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={closeModal}>
-      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-
+      <div
+        className="modal-box"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* HEADER */}
         <div className="modal-header">
           <h2>
-            <FaAmbulance /> Book a Ride
+            <FaAmbulance />
+            Book a Ride
           </h2>
 
-          <button className="close-btn" onClick={closeModal}>
+          <button
+            className="close-btn"
+            onClick={closeModal}
+          >
             <FaTimes />
           </button>
         </div>
@@ -104,7 +175,6 @@ const BookingModal = ({ isOpen, onClose }) => {
               />
             </div>
 
-            {/* NEW: TIME INPUT */}
             <div className="input">
               <FaClock className="icon" />
               <input
@@ -120,18 +190,25 @@ const BookingModal = ({ isOpen, onClose }) => {
         {/* STEP 2 */}
         {step === 2 && (
           <div className="modal-body">
-            <h3>Patient Needs</h3>
+            <h3>Patient Transportation Needs</h3>
 
             <div className="input">
               <FaWheelchair className="icon" />
+
               <select
                 name="patientType"
                 value={form.patientType}
                 onChange={handleChange}
               >
-                <option value="ambulatory">Ambulatory</option>
-                <option value="wheelchair">Wheelchair</option>
-                <option value="stretcher">Stretcher</option>
+                <option value="ambulatory">
+                  Ambulatory
+                </option>
+                <option value="wheelchair">
+                  Wheelchair
+                </option>
+                <option value="stretcher">
+                  Stretcher
+                </option>
               </select>
             </div>
           </div>
@@ -140,7 +217,7 @@ const BookingModal = ({ isOpen, onClose }) => {
         {/* STEP 3 */}
         {step === 3 && (
           <div className="modal-body">
-            <h3>Confirmation</h3>
+            <h3>Contact Information</h3>
 
             <div className="input">
               <FaUser className="icon" />
@@ -162,23 +239,51 @@ const BookingModal = ({ isOpen, onClose }) => {
               />
             </div>
 
-            <button className="submit-btn" onClick={handleSubmit}>
-              <FaCheckCircle /> Confirm Booking
+            <div className="input">
+              <FaEnvelope className="icon" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={form.email}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button
+              className="submit-btn"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              <FaCheckCircle />
+
+              {loading
+                ? "Submitting..."
+                : "Confirm Booking"}
             </button>
           </div>
         )}
 
-        {/* FOOTER NAV */}
+        {/* FOOTER */}
         <div className="modal-footer">
           {step > 1 && (
-            <button className="secondary" onClick={prevStep}>
-              <FaArrowLeft /> Back
+            <button
+              className="secondary"
+              onClick={prevStep}
+              disabled={loading}
+            >
+              <FaArrowLeft />
+              Back
             </button>
           )}
 
           {step < 3 && (
-            <button className="primary" onClick={nextStep}>
-              Next <FaArrowRight />
+            <button
+              className="primary"
+              onClick={nextStep}
+            >
+              Next
+              <FaArrowRight />
             </button>
           )}
         </div>

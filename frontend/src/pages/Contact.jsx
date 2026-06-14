@@ -15,6 +15,9 @@ import {
   FaMapMarkedAlt,
 } from "react-icons/fa";
 
+// Toastify
+import { toast } from "react-toastify";
+
 const Contact = () => {
   const [form, setForm] = useState({
     name: "",
@@ -23,22 +26,55 @@ const Contact = () => {
     message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Contact Form Submitted:", form);
-    alert("Message sent successfully!");
+    try {
+      setLoading(true);
 
-    setForm({
-      name: "",
-      phone: "",
-      email: "",
-      message: "",
-    });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/send-email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send message");
+      }
+
+      // ✅ SUCCESS TOAST
+      toast.success(data.message || "Message sent successfully!");
+
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+
+      // ❌ ERROR TOAST
+      toast.error(error.message || "Failed to send message");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -93,9 +129,7 @@ const Contact = () => {
             <FaMapMarkerAlt className="icon" />
             <div>
               <span className="label">Coverage</span>
-              <span className="value">
-                {" "}
-                Denver, Aurora, Boulder, Colorado Springs
+              <span className="value"> Denver, Aurora, Boulder, Colorado Springs
               </span>
             </div>
           </div>
@@ -134,9 +168,10 @@ const Contact = () => {
             <input
               type="email"
               name="email"
-              placeholder="Email (optional)"
+              placeholder="Email Address"
               value={form.email}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -144,7 +179,7 @@ const Contact = () => {
             <FaCommentDots className="input-icon" />
             <textarea
               name="message"
-              placeholder="Message / Ride request"
+              placeholder="Message / Ride Request"
               rows="5"
               value={form.message}
               onChange={handleChange}
@@ -152,7 +187,9 @@ const Contact = () => {
             />
           </div>
 
-          <button type="submit">Send Message</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Sending..." : "Send Message"}
+          </button>
         </form>
       </div>
     </section>

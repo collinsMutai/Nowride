@@ -8,7 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 999999 !important;
+  isolation: isolate;
   backdrop-filter: blur(6px);
 }
 
@@ -49,9 +50,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #111;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  color: #111 !important;
 }
 
 .close-btn {

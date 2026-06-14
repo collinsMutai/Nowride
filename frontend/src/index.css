@@ -39,6 +39,47 @@
 
   /* Gradient (RED THEME) */
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+  /* =========================
+   TOASTIFY NOWRIDE THEME
+========================= */
+
+
+  /* Backgrounds */
+  --toastify-color-success: #e11d48 !important;
+  --toastify-color-error: #e11d48 !important;
+  --toastify-color-info: #e11d48 !important;
+  --toastify-color-warning: #e11d48 !important;
+
+  /* Text */
+  --toastify-text-color-success: #010101 !important;
+  --toastify-text-color-error: #010101 !important;
+  --toastify-text-color-info: #010101 !important;
+  --toastify-text-color-warning: #010101 !important;
+
+  /* Icons */
+  --toastify-icon-color-success: #ffffff;
+  --toastify-icon-color-error: #ffffff;
+  --toastify-icon-color-info: #ffffff;
+  --toastify-icon-color-warning: #ffffff;
+
+  /* Progress bars */
+  --toastify-color-progress-success: rgba(255, 255, 255, 0.8);
+  --toastify-color-progress-error: rgba(255, 255, 255, 0.8);
+  --toastify-color-progress-info: rgba(255, 255, 255, 0.8);
+  --toastify-color-progress-warning: rgba(255, 255, 255, 0.8);
+}
+
+.Toastify__toast {
+  background: #e11d48 !important;
+  color: #ffffff !important;
+}
+
+.Toastify__toast-icon svg {
+  fill: #ffffff !important;
+}
+
+.Toastify__close-button {
+  color: #ffffff !important;
 }
 
 /* RESET */
@@ -87,4 +128,74 @@ p {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+
+/* =========================
+   TOASTIFY THEME OVERRIDES (NOWRIDE FIXED)
+========================= */
+
+.Toastify__toast {
+  font-family: var(--font-body);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+/* SUCCESS */
+.Toastify__toast--success {
+  background: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+/* ERROR */
+.Toastify__toast--error {
+  background: var(--secondary) !important;
+  color: var(--white) !important;
+}
+
+/* INFO */
+.Toastify__toast--info {
+  background: var(--dark) !important;
+  color: var(--white) !important;
+}
+
+/* WARNING */
+.Toastify__toast--warning {
+  background: var(--light) !important;
+  color: var(--dark) !important;
+}
+
+/* FORCE ALL TEXT INSIDE TOAST */
+.Toastify__toast-body {
+  color: inherit !important;
+}
+
+/* PROGRESS BAR */
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* WARNING PROGRESS BAR */
+.Toastify__toast--warning .Toastify__progress-bar {
+  background: var(--primary) !important;
+}
+
+/* CLOSE BUTTON */
+.Toastify__close-button {
+  color: inherit !important;
+  opacity: 0.8;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+/* LIGHT THEME BASE */
+.Toastify__toast-theme--light {
+  background: var(--white) !important;
+  color: var(--dark) !important;
+  border: 1px solid var(--border);
 }

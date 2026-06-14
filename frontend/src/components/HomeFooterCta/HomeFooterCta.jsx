@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { FaPhoneAlt, FaCalendarCheck } from "react-icons/fa";
 import "./HomeFooterCta.css";
+import BookingModal from "../BookingModal/BookingModal";
+import { useState } from "react";
 
 const HomeFooterCta = () => {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <section className="cta-band">
-
       <div className="cta-bg-lines" />
 
       <motion.div
@@ -15,7 +17,6 @@ const HomeFooterCta = () => {
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.3 }}
       >
-
         {/* TITLE */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -51,8 +52,9 @@ const HomeFooterCta = () => {
             },
           }}
         >
-          <motion.a
-            href="/book"
+          <motion.button
+            type="button"
+            onClick={() => setOpenModal(true)}
             className="cta-primary"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -60,10 +62,14 @@ const HomeFooterCta = () => {
           >
             <FaCalendarCheck />
             Book a Ride Now
-          </motion.a>
-
-          <motion.a
-            href="tel:+1234567890"
+          </motion.button>
+          <BookingModal
+            isOpen={openModal}
+            onClose={() => setOpenModal(false)}
+          />
+          <motion.button
+            type="button"
+            onClick={() => (window.location.href = "tel:+1234567890")}
             className="cta-secondary"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -71,9 +77,8 @@ const HomeFooterCta = () => {
           >
             <FaPhoneAlt />
             Call Dispatch
-          </motion.a>
+          </motion.button>
         </motion.div>
-
       </motion.div>
     </section>
   );

@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaAmbulance } from "react-icons/fa";
+import logo from "../../assets/logo.png";
 import "./Footer.css";
 
 const Footer = () => {
@@ -33,10 +33,17 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-brand">
-          <div className="footer-logo">
-            <FaAmbulance />
-            <span>NowRide Care</span>
-          </div>
+         <Link
+  to="/"
+  className="footer-logo"
+  onClick={scrollToTop}
+>
+  <img
+    src={logo}
+    alt="NowRide Care Logo"
+    className="footer-logo-image"
+  />
+</Link>
 
           <p>Non-Emergency Medical Transportation in Colorado</p>
         </div>

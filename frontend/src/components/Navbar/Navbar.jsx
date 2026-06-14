@@ -7,13 +7,13 @@ import {
   FaMapMarkerAlt,
   FaFacebookF,
   FaLinkedinIn,
-  FaAmbulance,
   FaBars,
   FaTimes,
 } from "react-icons/fa";
 
 import "./Navbar.css";
 import BookingModal from "../BookingModal/BookingModal";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -68,7 +68,7 @@ const Navbar = () => {
           </span>
 
           <span>
-            <FaEnvelope className="icon" /> dispatch@nowride.com
+            <FaEnvelope className="icon" /> info@nowride.care
           </span>
 
           <span>
@@ -97,10 +97,9 @@ const Navbar = () => {
 
       {/* NAVBAR */}
       <nav className="navbar">
-        <div className="navbar-logo">
-          <FaAmbulance className="logo-icon" />
-          <span>NOWRIDE</span>
-        </div>
+        <Link to="/" className="navbar-logo" onClick={handleNavLinkClick}>
+          <img src={logo} alt="NOWRIDE Logo" className="logo-image" />
+        </Link>
 
         <div className="menu-icon" onClick={() => setOpen(!open)}>
           {open ? <FaTimes /> : <FaBars />}
@@ -141,17 +140,11 @@ const Navbar = () => {
           </li>
         </ul>
 
-        <button
-          className="navbar-btn"
-          onClick={() => setOpenModal(true)}
-        >
+        <button className="navbar-btn" onClick={() => setOpenModal(true)}>
           Schedule a Ride
         </button>
 
-        <BookingModal
-          isOpen={openModal}
-          onClose={() => setOpenModal(false)}
-        />
+        <BookingModal isOpen={openModal} onClose={() => setOpenModal(false)} />
       </nav>
     </>
   );

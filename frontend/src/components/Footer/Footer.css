@@ -20,14 +20,16 @@
 .footer-logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.4rem;
-  font-weight: 700;
+  justify-content: center;
+  text-decoration: none;
   margin-bottom: 12px;
 }
 
-.footer-logo svg {
-  color: #e11d48;
+.footer-logo-image {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .footer-brand p {
