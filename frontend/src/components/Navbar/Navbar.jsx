@@ -13,7 +13,7 @@ import {
 
 import "./Navbar.css";
 import BookingModal from "../BookingModal/BookingModal";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.jpeg";
 
 const Navbar = () => {
   const [openModal, setOpenModal] = useState(false);

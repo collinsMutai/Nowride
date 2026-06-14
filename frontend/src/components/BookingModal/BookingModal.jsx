@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import "./BookingModal.css";
 
 import {
@@ -23,7 +24,7 @@ const BookingModal = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const initialForm = {
+  const [form, setForm] = useState({
     pickup: "",
     dropoff: "",
     date: "",
@@ -32,9 +33,32 @@ const BookingModal = ({ isOpen, onClose }) => {
     name: "",
     phone: "",
     email: "",
-  };
+  });
 
-  const [form, setForm] = useState(initialForm);
+  // =========================
+  // BODY SCROLL LOCK
+  // =========================
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+
+    return () => {
+      document.body.classList.remove("modal-open");
+    };
+  }, [isOpen]);
+
+  // =========================
+  // SAFE PORTAL TARGET
+  // =========================
+  const modalRoot =
+    typeof document !== "undefined"
+      ? document.body
+      : null;
+
+  if (!isOpen || !modalRoot) return null;
 
   const handleChange = (e) => {
     setForm((prev) => ({
@@ -66,7 +90,6 @@ const BookingModal = ({ isOpen, onClose }) => {
 
   const closeModal = () => {
     setStep(1);
-    setForm(initialForm);
     onClose();
   };
 
@@ -105,21 +128,19 @@ const BookingModal = ({ isOpen, onClose }) => {
         closeModal();
       }, 1200);
     } catch (error) {
-      console.error(error);
       toast.error(error.message || "Failed to submit booking.");
     } finally {
       setLoading(false);
     }
   };
 
-  if (!isOpen) return null;
-
-  return (
+  // =========================
+  // PORTAL RENDER
+  // =========================
+  return createPortal(
     <div className="modal-overlay" onClick={closeModal}>
-      <div
-        className="modal-box"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+
         {/* HEADER */}
         <div className="modal-header">
           <h2>
@@ -127,10 +148,7 @@ const BookingModal = ({ isOpen, onClose }) => {
             Book a Ride
           </h2>
 
-          <button
-            className="close-btn"
-            onClick={closeModal}
-          >
+          <button className="close-btn" onClick={closeModal}>
             <FaTimes />
           </button>
         </div>
@@ -190,25 +208,18 @@ const BookingModal = ({ isOpen, onClose }) => {
         {/* STEP 2 */}
         {step === 2 && (
           <div className="modal-body">
-            <h3>Patient Transportation Needs</h3>
+            <h3>Patient Needs</h3>
 
             <div className="input">
               <FaWheelchair className="icon" />
-
               <select
                 name="patientType"
                 value={form.patientType}
                 onChange={handleChange}
               >
-                <option value="ambulatory">
-                  Ambulatory
-                </option>
-                <option value="wheelchair">
-                  Wheelchair
-                </option>
-                <option value="stretcher">
-                  Stretcher
-                </option>
+                <option value="ambulatory">Ambulatory</option>
+                <option value="wheelchair">Wheelchair</option>
+                <option value="stretcher">Stretcher</option>
               </select>
             </div>
           </div>
@@ -242,7 +253,6 @@ const BookingModal = ({ isOpen, onClose }) => {
             <div className="input">
               <FaEnvelope className="icon" />
               <input
-                type="email"
                 name="email"
                 placeholder="Email Address"
                 value={form.email}
@@ -256,10 +266,7 @@ const BookingModal = ({ isOpen, onClose }) => {
               disabled={loading}
             >
               <FaCheckCircle />
-
-              {loading
-                ? "Submitting..."
-                : "Confirm Booking"}
+              {loading ? "Submitting..." : "Confirm Booking"}
             </button>
           </div>
         )}
@@ -278,17 +285,16 @@ const BookingModal = ({ isOpen, onClose }) => {
           )}
 
           {step < 3 && (
-            <button
-              className="primary"
-              onClick={nextStep}
-            >
+            <button className="primary" onClick={nextStep}>
               Next
               <FaArrowRight />
             </button>
           )}
         </div>
+
       </div>
-    </div>
+    </div>,
+    modalRoot
   );
 };
 
