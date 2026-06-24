@@ -57,9 +57,13 @@ const Footer = () => {
             About
           </Link>
 
-          <Link to="/services" onClick={scrollToTop}>
+        
+          <button
+            className="footer-link-btn"
+            onClick={() => scrollToSection("services")}
+          >
             Services
-          </Link>
+          </button>
 
           <button
             className="footer-link-btn"
