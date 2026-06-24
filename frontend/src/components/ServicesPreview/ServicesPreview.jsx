@@ -45,7 +45,7 @@ const cardVariants = {
 
 const ServicesPreview = () => {
   return (
-    <section className="services-preview">
+    <section className="services-preview" id="services">
       <div className="services-container">
 
         {/* HEADER */}
@@ -57,7 +57,7 @@ const ServicesPreview = () => {
           viewport={{ once: false, amount: 0.3 }}
         >
           <span className="services-tag">OUR SERVICES</span>
-          <h2>Medical Transportation Services</h2>
+          <h2>Private Pay For Ambulatory Transports</h2>
           <p>
             Safe, reliable, and compassionate transportation solutions for patients, seniors, healthcare providers, and care facilities.
           </p>

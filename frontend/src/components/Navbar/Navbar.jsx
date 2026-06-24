@@ -36,23 +36,18 @@ const Navbar = () => {
   };
 
   // Service Areas scroll behavior
-  const scrollToSection = (id) => {
-    if (location.pathname !== "/") {
-      navigate("/");
-
-      setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({
-          behavior: "smooth",
-        });
-      }, 100);
-    } else {
-      document.getElementById(id)?.scrollIntoView({
-        behavior: "smooth",
-      });
+const scrollToSection = (id) => {
+  if (location.pathname !== "/") {
+    navigate("/", { state: { scrollTo: id } });
+  } else {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
     }
+  }
 
-    closeMenu();
-  };
+  closeMenu();
+};
 
   return (
     <>
@@ -119,9 +114,15 @@ const Navbar = () => {
           </li>
 
           <li>
-            <Link to="/services" onClick={handleNavLinkClick}>
+            {/* <Link to="/services" onClick={handleNavLinkClick}>
               Services
-            </Link>
+            </Link> */}
+                 <button
+              onClick={() => scrollToSection("services")}
+              className="nav-link-btn"
+            >
+              Services
+            </button>
           </li>
 
           <li>

@@ -365,6 +365,11 @@
   border: 1px solid #fecaca;
 }
 
+#coverage {
+  scroll-margin-top: 100px;
+}
+
+
 .coverage-error h4 {
   color: #b91c1c;
   margin-bottom: 8px;
