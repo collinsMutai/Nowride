@@ -63,7 +63,7 @@ const scrollToSection = (id) => {
           </span>
 
           <span>
-            <FaEnvelope className="icon" /> info@nowride.care
+            <FaEnvelope className="icon" /> nowrideteam@gmail.com
           </span>
 
           <span>

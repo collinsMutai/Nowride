@@ -103,7 +103,7 @@ const BookingModal = ({ isOpen, onClose }) => {
       setLoading(true);
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/book-ride`,
+        `${import.meta.env.VITE_API_URL}/api/send-email`,
         {
           method: "POST",
           headers: {
