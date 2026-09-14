@@ -105,7 +105,7 @@ const Contact = () => {
             <FaEnvelope className="icon" />
             <div>
               <span className="label">Email</span>
-              <span className="value"> info@nowride.care</span>
+              <span className="value"> nowrideteam@gmail.com</span>
             </div>
           </div>
 
