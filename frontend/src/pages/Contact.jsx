@@ -97,7 +97,7 @@ const Contact = () => {
             <FaPhoneAlt className="icon" />
             <div>
               <span className="label">Phone</span>
-              <span className="value"> +1 (719) 306-7313</span>
+              <span className="value"> +1 (719) 644-0558</span>
             </div>
           </div>
 

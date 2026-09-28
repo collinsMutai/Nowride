@@ -59,7 +59,7 @@ const scrollToSection = (id) => {
           </span>
 
           <span>
-            <FaPhoneAlt className="icon" /> 719-306-7313 
+            <FaPhoneAlt className="icon" /> 719-644-0558
           </span>
 
           <span>

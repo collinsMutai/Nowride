@@ -76,7 +76,7 @@ const QuickBookingSection = () => {
               <span className="text">Live Dispatch</span>
             </a>
 
-            <a href="tel:+17193067313" className="call-now-btn">
+            <a href="tel:+17196440558" className="call-now-btn">
               Call Now
             </a>
           </div>

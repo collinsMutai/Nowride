@@ -69,7 +69,7 @@ const HomeFooterCta = () => {
           />
           <motion.button
             type="button"
-            onClick={() => (window.location.href = "tel:+1234567890")}
+            onClick={() => (window.location.href = "tel:+17196440558")}
             className="cta-secondary"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
